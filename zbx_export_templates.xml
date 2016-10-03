@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.2</version>
-    <date>2016-10-03T10:20:04Z</date>
+    <date>2016-10-03T13:23:18Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -85,6 +85,49 @@
                     <applications>
                         <application>
                             <name>Database</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                </item>
+                <item>
+                    <name>Papercut Held Jobs Count</name>
+                    <type>7</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>heldjob[heldJobsCount]</key>
+                    <delay>300</delay>
+                    <history>90</history>
+                    <trends>365</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description>The number Jobs in the Queue that Papercut reported in the last 10 minutes. This number will be updated every 5 minutes</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Print</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -226,7 +269,7 @@
                     <multiplier>1</multiplier>
                     <snmp_oid/>
                     <key>papercut[diskSpaceFreeMB]</key>
-                    <delay>60</delay>
+                    <delay>300</delay>
                     <history>90</history>
                     <trends>365</trends>
                     <status>0</status>
@@ -269,7 +312,7 @@
                     <multiplier>0</multiplier>
                     <snmp_oid/>
                     <key>papercut[diskSpaceUsedPercentage]</key>
-                    <delay>60</delay>
+                    <delay>300</delay>
                     <history>90</history>
                     <trends>365</trends>
                     <status>0</status>
@@ -312,7 +355,7 @@
                     <multiplier>0</multiplier>
                     <snmp_oid/>
                     <key>papercut[jvmMemoryUsedPercentage]</key>
-                    <delay>60</delay>
+                    <delay>300</delay>
                     <history>90</history>
                     <trends>365</trends>
                     <status>0</status>
@@ -355,7 +398,7 @@
                     <multiplier>0</multiplier>
                     <snmp_oid/>
                     <key>papercut[licenseRemaining]</key>
-                    <delay>60</delay>
+                    <delay>3600</delay>
                     <history>90</history>
                     <trends>365</trends>
                     <status>0</status>
@@ -381,7 +424,7 @@
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description/>
+                    <description>This item will Check how many days there are still Left before the Papercut license will stop working. This is updated once every Hour</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
@@ -441,7 +484,7 @@
                     <multiplier>0</multiplier>
                     <snmp_oid/>
                     <key>papercut[uptimeHours]</key>
-                    <delay>60</delay>
+                    <delay>3600</delay>
                     <history>90</history>
                     <trends>365</trends>
                     <status>0</status>
@@ -467,7 +510,7 @@
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description/>
+                    <description>Uptime of the Papercut server. This value will be update once every hour</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
@@ -484,7 +527,7 @@
                     <multiplier>0</multiplier>
                     <snmp_oid/>
                     <key>papercut[validlicense]</key>
-                    <delay>60</delay>
+                    <delay>3600</delay>
                     <history>90</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -510,7 +553,8 @@
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description/>
+                    <description>This Item checks the License on the Papercut Server&#13;
+it will verify once every Hour if the License is still Valid.</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
@@ -589,7 +633,7 @@
                     <steps>
                         <step>
                             <name>Papercut Status</name>
-                            <url>http://{HOST.IP}/api/health/status?{$AUTHORIZATION}</url>
+                            <url>http://{$PAPERCUTIP}/api/health/status?{$AUTHORIZATION}</url>
                             <posts/>
                             <variables/>
                             <headers/>
@@ -604,8 +648,12 @@
             </httptests>
             <macros>
                 <macro>
-                    <macro>{$PAPERCUTURL}</macro>
-                    <value/>
+                    <macro>{$AUTHORIZATION}</macro>
+                    <value>Authorization:nwBe295Hl972zIf35nieMacKBDvkm7Xd</value>
+                </macro>
+                <macro>
+                    <macro>{$PAPERCUTIP}</macro>
+                    <value>10.5.1.96:9191</value>
                 </macro>
             </macros>
             <templates/>

@@ -5,18 +5,20 @@ import sys
 import json
 import ConfigParser
 
-
 config = ConfigParser.ConfigParser()
 config.read("papercut.ini")
-serverip = config.get("papercutvars", "papercut-server-ip")
-serverauth = config.get("papercutvars", "papercut-authorization-key")
+
+serverip = config.get("vars", "papercut-server-ip")
+serverauth = config.get("vars", "papercut-authorization-key")
 
 
-url='http://{0}:9191/api/health?{1}'.format(serverip,serverauth)
-
+url='http://{0}/api/health?{1}'.format(serverip,serverauth)
+#url2='http://{0}/api/stats/recent-pages-count?minutes=60&{1}'.format(serverip,serverauth)
+#url3='http://{0}/api/stats/held-jobs-count?minutes=10&{1}'.format(serverip,serverauth)
 
 response = urllib.urlopen(url)
 data = json.loads(response.read())
+
 
 def main():
   if len(sys.argv)<2:
@@ -65,4 +67,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
