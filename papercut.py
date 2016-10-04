@@ -3,19 +3,22 @@
 import urllib
 import sys
 import json
-import ConfigParser
 
-#config = ConfigParser.ConfigParser()
-#config.read("papercut.ini")
-#serverip = config.get("vars", "papercut-server-ip")
-#serverauth = config.get("vars", "papercut-authorization-key")
+serverip="10.5.1.96:9191"
+serverauth='Authorization=nwBe295Hl972zIf35nieMacKBDvkm7Xd'
 
-#url='http://{0}/api/health?{0}'.format(serverip,serverauth)
-url='http://10.5.1.96:9191/api/health?Authorization=nwBe295Hl972zIf35nieMacKBDvkm7Xd'
+url='http://{0}/api/health?{1}'.format(serverip,serverauth)
+url2='http://{0}/api/stats/held-jobs-count?minutes=10&{1}'.format(serverip,serverauth)
+url3='http://{0}/api/stats/recent-pages-count?minutes=60&{1}'.format(serverip,serverauth)
 
 response = urllib.urlopen(url)
 data = json.loads(response.read())
 
+response2 = urllib.urlopen(url2)
+data2 = json.loads(response2.read())
+
+response3 = urllib.urlopen(url3)
+data3 = json.loads(response3.read())
 
 def main():
   if len(sys.argv)<2:
@@ -61,6 +64,13 @@ def main():
     maxConnections = data['database']['maxConnections']
     print maxConnections
 
+  elif sys.argv[1]=='heldJobsCount':
+    heldJobsCount = data2['heldJobsCount']
+    print heldJobsCount
+
+  elif sys.argv[1]=='recentPagesCount':
+    recentPagesCount = data3['recentPagesCount']
+    print recentPagesCount
 
 if __name__ == '__main__':
     main()

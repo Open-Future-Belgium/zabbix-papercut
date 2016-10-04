@@ -5,14 +5,14 @@
 
 2. Import the zbx_export_templates.xm into zabbix 3.2
 
-3. Copy the userparameter_papercut.conf into the Zabbix Include folder on the Papercut Server. The location can vary you can find the correct path in the Zabbix agent config file under the "Option: Include" Section. As example this could be 
+3. Copy the userparameter_papercut.conf into the Zabbix Include folder on the Papercut Server. The location can vary you can find the correct path in the Zabbix agent config file under the "Option: Include" Section. As example this could be
 "Include=/etc/zabbix/zabbix_agentd.d/*.conf"
 
 4. Copy the python scripts (*.py) in your Zabbix Scripts folder. The location of this file can be changed but points standard to "/etc/zabbix/papercut.py" in the "userparameter_papercut.conf" file.
 
 5. Make sure that the file is executable by zabbix and that python 2.6+ is installed on the system.
 
-6. Update the Get Query parameter and Server IP in the "papercut.ini" script with the one from your papercut server.
+6. Update the Get Query parameter and Server IP in the "papercut.py" script with the one from your papercut server.
 
 7. Configure the Zabbix agent in the frontend and link it with the Papercut template
 
