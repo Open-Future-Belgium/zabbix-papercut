@@ -18,13 +18,14 @@ json_input = json.loads(response.read())
 
 def main():
     try:
-        for i in json_input['printers']:
-            r["data"].append( {"{#PRNAME}": i['name']} )
-
+#        for i in json_input['printers']:
+        var = [ i for i in json_input['printers'] if i["name"] == "laptop-sarah\\syd2prn077"]
+        r["data"].append( {"{#PRNAME}": var} )
         print json.dumps(r, indent=2, sort_keys=True, encoding="utf-8")
 
     except (ValueError, KeyError, TypeError):
         print "JSON format error"
+        print json.dumps(r, indent=2, sort_keys=True, encoding="utf-8")
 
 if __name__ == "__main__":
     main()
