@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.2</version>
-    <date>2016-10-04T08:22:20Z</date>
+    <date>2017-01-31T09:35:01Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -9,8 +9,8 @@
     </groups>
     <templates>
         <template>
-            <template>Template_Papercut_SMB</template>
-            <name>Template_Papercut_SMB</name>
+            <template>Template_Papercut</template>
+            <name>Template_Papercut</name>
             <description/>
             <groups>
                 <group>
@@ -20,6 +20,9 @@
             <applications>
                 <application>
                     <name>Database</name>
+                </application>
+                <application>
+                    <name>Device Discovery</name>
                 </application>
                 <application>
                     <name>DiskSpace</name>
@@ -608,7 +611,109 @@ it will verify once every Hour if the License is still Valid.</description>
                     <logtimefmt/>
                 </item>
             </items>
-            <discovery_rules/>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Papercut Printers</name>
+                    <type>7</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>printer.discovery</key>
+                    <delay>30</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
+                    <lifetime>30</lifetime>
+                    <description/>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Printer {#PRNAME}</name>
+                            <type>7</type>
+                            <snmp_community/>
+                            <multiplier>0</multiplier>
+                            <snmp_oid/>
+                            <key>printer.status[&quot;{#PRNAME}&quot;]</key>
+                            <delay>60</delay>
+                            <history>90</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>Device Discovery</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Service state</name>
+                            </valuemap>
+                            <logtimefmt/>
+                            <application_prototypes/>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template_Papercut:printer.status[&quot;{#PRNAME}&quot;].last()}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>Printer {#PRNAME} NOT Ok!</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes/>
+                    <host_prototypes/>
+                </discovery_rule>
+            </discovery_rules>
             <httptests>
                 <httptest>
                     <name>Papercut Status</name>
@@ -662,9 +767,9 @@ it will verify once every Hour if the License is still Valid.</description>
     </templates>
     <triggers>
         <trigger>
-            <expression>{Template_Papercut_SMB:papercut[diskSpaceFreeMB].min(600)}&lt;1000</expression>
+            <expression>{Template_Papercut:papercut[diskSpaceFreeMB].min(600)}&lt;1000</expression>
             <recovery_mode>1</recovery_mode>
-            <recovery_expression>{Template_Papercut_SMB:papercut[diskSpaceFreeMB].max(600)}&gt;1000</recovery_expression>
+            <recovery_expression>{Template_Papercut:papercut[diskSpaceFreeMB].max(600)}&gt;1000</recovery_expression>
             <name>Free Space on {HOST.HOST} &lt;1GB</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
@@ -680,7 +785,7 @@ Trigger will recover if during 10min the highest value is more then 1GB</descrip
             <tags/>
         </trigger>
         <trigger>
-            <expression>{Template_Papercut_SMB:activedb.percentage.max(300)}&gt;90</expression>
+            <expression>{Template_Papercut:activedb.percentage.max(300)}&gt;90</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Papercut Active database Connections &gt; 90%</name>
@@ -696,7 +801,7 @@ Trigger will recover if during 10min the highest value is more then 1GB</descrip
             <tags/>
         </trigger>
         <trigger>
-            <expression>{Template_Papercut_SMB:papercut[databaseStatus].str(OK)}=0</expression>
+            <expression>{Template_Papercut:papercut[databaseStatus].str(OK)}=0</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Papercut Database Status NOT Ok</name>
@@ -712,7 +817,7 @@ Trigger will recover if during 10min the highest value is more then 1GB</descrip
             <tags/>
         </trigger>
         <trigger>
-            <expression>{Template_Papercut_SMB:papercut[validlicense].str(True)}=0</expression>
+            <expression>{Template_Papercut:papercut[validlicense].str(True)}=0</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Papercut License Not Valid</name>
@@ -728,4 +833,19 @@ Trigger will recover if during 10min the highest value is more then 1GB</descrip
             <tags/>
         </trigger>
     </triggers>
+    <value_maps>
+        <value_map>
+            <name>Service state</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
 </zabbix_export>

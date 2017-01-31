@@ -4,9 +4,14 @@ import urllib
 import sys
 import json
 
+file=open('/etc/zabbix/papercut.conf','r')
+for line in file.readlines():
+    (key, sep, value) = line.partition('=')
+    if key == 'papercut_ip':
+        serverip = value[1:-2]
+    if key == 'papercut_auth':
+        serverauth = value[1:-2]
 
-serverip="canary.papercut.com"
-serverauth='Authorization=0b3ee6f4-5a97-4918-8f1b-3628142093d5'
 
 r = { "data": [] }
 domains = []

@@ -4,8 +4,14 @@ import urllib
 import sys
 import json
 
-serverip="10.5.1.96:9191"
-serverauth='Authorization=nwBe295Hl972zIf35nieMacKBDvkm7Xd'
+file=open('/etc/zabbix/papercut.conf','r')
+for line in file.readlines():
+    (key, sep, value) = line.partition('=')
+    if key == 'papercut_ip':
+        serverip = value[1:-2]
+    if key == 'papercut_auth':
+        serverauth = value[1:-2]
+
 
 url='http://{0}/api/health?{1}'.format(serverip,serverauth)
 url2='http://{0}/api/stats/held-jobs-count?minutes=10&{1}'.format(serverip,serverauth)
@@ -50,7 +56,7 @@ def main():
 
   elif sys.argv[1]=='licenseRemaining':
     licenseRemaining = data['license']['licenseRemainingDays']
-    print licenseRemaining 
+    print licenseRemaining
 
   elif sys.argv[1]=='databaseStatus':
     databaseStatus = data['database']['status']
@@ -74,3 +80,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

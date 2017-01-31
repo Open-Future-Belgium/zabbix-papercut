@@ -10,9 +10,12 @@
 
 4. Copy the python scripts (*.py) in your Zabbix Scripts folder. The location of this file can be changed but points standard to "/etc/zabbix/papercut.py" in the "userparameter_papercut.conf" file.
 
-5. Make sure that the file is executable by zabbix and that python 2.6+ is installed on the system.
+5. Make sure that the file is readable by zabbix and that python 2.6+ is installed on the system.
 
 6. Update the Get Query parameter and Server IP in the "papercut.py" script with the one from your papercut server.
+
+7. Change the Parameter "UnsafeUserParameters=0" to 1 in the zabbix
+   agent and start the agent.
 
 7. Configure the Zabbix agent in the frontend and link it with the Papercut template
 
