@@ -618,7 +618,7 @@ it will verify once every Hour if the License is still Valid.</description>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>printer.discovery</key>
-                    <delay>30</delay>
+                    <delay>3600</delay>
                     <status>0</status>
                     <allowed_hosts/>
                     <snmpv3_contextname/>
