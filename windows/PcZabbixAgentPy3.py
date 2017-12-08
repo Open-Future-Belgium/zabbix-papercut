@@ -21,12 +21,12 @@ if not os.path.exists('binz'):
 
 # Unzip zabbix folder for all python scrips and papercut.conf
 def PcZipCopy():
-    zip_ref = zipfile.ZipFile('zabbix-papercut-linux-py3.zip', 'r')
+    zip_ref = zipfile.ZipFile('zabbix-papercut-master.zip', 'r')
     zip_ref.extractall('tmpz')
     zip_ref.close()            
-    for file in glob.glob(r'tmpz\zabbix-papercut-linux-py3\*.py'):
+    for file in glob.glob(r'tmpz\zabbix-papercut-master\linux\py3\*.py'):
         shutil.copy(file,'binz')
-    shutil.copy('tmpz\zabbix-papercut-linux-py3\papercut.conf','binz')    
+    shutil.copy('tmpz\zabbix-papercut-master\papercut.conf','binz')    
 
 # Untar zabbix conf file for windows and agentd.exe and place in binz file 
 def Ztarcopy(): 
