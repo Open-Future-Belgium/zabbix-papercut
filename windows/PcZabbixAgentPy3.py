@@ -13,6 +13,7 @@ import glob
 import tarfile
 import sys
 import re
+import fnmatch
 
 os.chdir('c:\\zabbix')
 #create binz file all file in operations are placed here.
@@ -29,14 +30,21 @@ def PcZipCopy():
     shutil.copy('tmpz\zabbix-papercut-master\papercut.conf','binz')    
 
 # Untar zabbix conf file for windows and agentd.exe and place in binz file 
-def Ztarcopy(): 
-    tar = tarfile.open("zabbix-3.4.3.tar.gz", 'r:gz')
+def Ztarcopy():
+    #Find the Latest zabbix agent .tar.gz file, Find the File and define zFolder name
+    for file in os.listdir('.'):
+        if fnmatch.fnmatch(file, 'zabbix-?.?.*.tar.gz'):
+            zabbixGz = file
+    zFolder = zabbixGz[:-len('.tar.gz')]
+    tar = tarfile.open(zabbixGz, 'r:gz')
 #    print (tar.getmembers())
-    tar.extract('zabbix-3.4.3/conf/zabbix_agentd.win.conf', 'tmpz')
-    tar.extract('zabbix-3.4.3/bin/win64/zabbix_agentd.exe', 'tmpz')
+    winConfLoc = zFolder +'/conf/zabbix_agentd.win.conf'
+    agentExeLoc = zFolder +'/bin/win64/zabbix_agentd.exe'
+    tar.extract( winConfLoc, 'tmpz')
+    tar.extract( agentExeLoc, 'tmpz')
     tar.close()
-    shutil.copy('tmpz\\zabbix-3.4.3\\conf\\zabbix_agentd.win.conf','binz\\zabbix_agentd.conf')
-    shutil.copy('tmpz\\zabbix-3.4.3\\bin\\win64\\zabbix_agentd.exe','binz\\zabbix_agentd.exe')
+    shutil.copy('tmpz\\'+ zFolder +'\\conf\\zabbix_agentd.win.conf','binz\\zabbix_agentd.conf')
+    shutil.copy('tmpz\\'+ zFolder +'\\bin\\win64\\zabbix_agentd.exe','binz\\zabbix_agentd.exe')
     
 # Edit all file to make them compatible for windows
 def Zedit():    
