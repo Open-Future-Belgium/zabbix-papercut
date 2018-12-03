@@ -816,7 +816,7 @@ it will verify once every Hour if the License is still Valid.</description>
             <macros>
                 <macro>
                     <macro>{$AUTHORIZATION}</macro>
-                    <value>Authorization:nwBe295Hl972zIf35nieMacKBDvkm7Xd</value>
+                    <value>Authorization=nwBe295Hl972zIf35nieMacKBDvkm7Xd</value>
                 </macro>
                 <macro>
                     <macro>{$PAPERCUTIP}</macro>
